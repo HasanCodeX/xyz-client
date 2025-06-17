@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -19,8 +18,8 @@ import PrivateRoute from "./routes/PrivateRoute";
 import MyFoods from "./routes/MyFoods";
 import AddFoodPage from "./routes/AddFoodPage";
 import FoodDetailsPage from "./routes/FoodDetailsPage";
-import FridgePage from "./routes/fridge";
 import Profile from "./routes/Profile";
+import FridgePage from "./routes/FridgePage";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +39,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "fridge",
+        path: "/fridge",
         element: (
           <PrivateRoute>
             <FridgePage />
@@ -50,7 +49,8 @@ const router = createBrowserRouter([
       {
         path: "update-food/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/foods/${params.id}`),
+          fetch(`https://mehedi2.vercel.app/foods/${params.id}`),
+
         element: (
           <PrivateRoute>
             <UpdateFood />

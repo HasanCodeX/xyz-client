@@ -16,10 +16,23 @@ const AddFoodPage = () => {
     formData.addedDate = new Date().toISOString();
 
     try {
-      const res = await fetch("http://localhost:5000/foods", {
+      const res = await fetch("https://mehedi2.vercel.app/foods", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+
+
+
+
+
+
+
+
         body: JSON.stringify(formData),
+        credentials: "include",  
+
+
+
+        // body: JSON.stringify(formData),
       });
       if (!res.ok) throw new Error("Failed to add food");
 
@@ -31,7 +44,7 @@ const AddFoodPage = () => {
       });
 
       form.reset();
-      navigate("/my-items"); // Redirect after success
+      navigate("/my-foods"); // Redirect after success
     } catch (error) {
       console.error(error);
       Swal.fire({

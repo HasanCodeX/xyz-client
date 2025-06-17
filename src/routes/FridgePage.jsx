@@ -5,13 +5,15 @@ import Swal from "sweetalert2";
 
 const FridgePage = () => {
   const [foods, setFoods] = useState([]);
+  const [category, setCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFoods = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/foods");
+        const res = await axios.get("https://mehedi2.vercel.app/foods");
         setFoods(res.data);
       } catch (err) {
         Swal.fire({
@@ -27,6 +29,14 @@ const FridgePage = () => {
 
     fetchFoods();
   }, []);
+
+  const options = ["All", "Dairy", "Meat", "Vegetables", "Snacks"];
+
+  const filterFoods = foods.filter(
+    (item) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (category === "All" ? true : item.category === category)
+  );
 
   // Helper function to check if food is expired
   const isExpired = (expiryDate) => {
@@ -48,14 +58,56 @@ const FridgePage = () => {
         <h1 className="text-4xl font-bold text-green-700 dark:text-emerald-400 mb-6 text-center">
           My Fridge
         </h1>
+        <div className="flex justify-center items-center flex-col">
+          <label className="input">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              type="search"
+              className="grow"
+              placeholder="Search"
+            />
+            <kbd className="kbd kbd-sm">⌘</kbd>
+            <kbd className="kbd kbd-sm">K</kbd>
+          </label>
+          <h3>Select By Category</h3>
+          <select
+            className="input"
+            onChange={(e) => setCategory(e.target.value)}
+            value={category}
+          >
+            {options.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="divider"></div>
 
-        {foods.length === 0 ? (
+        {filterFoods.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-400">
             No food items found.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {foods.map((food) => (
+            {filterFoods.map((food) => (
               <div
                 key={food._id}
                 className="bg-white dark:bg-zinc-800 rounded-lg shadow-md overflow-hidden flex flex-col"

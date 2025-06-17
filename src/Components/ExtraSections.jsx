@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
-
-const MotionDiv = motion.div; 
-
+const MotionDiv = motion.div;
 
 const foodTips = [
   {
@@ -69,36 +66,36 @@ const foodTips = [
   }
 ];
 
-// Framer Motion variants for animations
+// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1 
+      staggerChildren: 0.1
     }
   }
 };
 
 const itemVariants = {
-  hidden: { y: 50, opacity: 0, scale: 0.9 }, 
+  hidden: { y: 50, opacity: 0, scale: 0.9 },
   show: {
     y: 0,
     opacity: 1,
     scale: 1,
     transition: {
-      type: "spring", 
-      stiffness: 100, 
-      damping: 10     
+      type: "spring",
+      stiffness: 100,
+      damping: 10
     }
   }
 };
 
 const ExtraSections = () => {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-14 bg-gradient-to-b from-blue-50 to-white dark:from-zinc-900 dark:to-zinc-800 transition-colors duration-300">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-blue-700 dark:text-blue-400">
+    <section className="max-w-8xl mx-auto px-4 py-14 bg-gradient-to-b from-yellow-50 to-white dark:from-zinc-900 dark:to-zinc-800 transition-colors duration-300 rounded-2xl mt-8">
+      <div className="text-center mb-10">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-orange-700 dark:text-orange-400">
           Food Preservation & Storage Tips
         </h2>
         <p className="text-gray-600 dark:text-gray-400 mt-3 text-base max-w-xl mx-auto">
@@ -106,30 +103,30 @@ const ExtraSections = () => {
         </p>
       </div>
 
-      <MotionDiv 
+      <MotionDiv
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         variants={containerVariants}
         initial="hidden"
-        whileInView="show" 
-        viewport={{ once: true, amount: 0.3 }} 
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
       >
         {foodTips.map((tip, index) => (
           <MotionDiv
             key={index}
-            className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center border border-blue-100 dark:border-zinc-700"
+            className="bg-gradient-to-br from-yellow-100 to-white dark:from-zinc-800 dark:to-zinc-900 p-5 rounded-xl shadow hover:shadow-xl transition-shadow duration-300 text-center border border-yellow-200 dark:border-zinc-700"
             variants={itemVariants}
-            whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.2 } }} // New hover effect
+            whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.2 } }}
           >
-            <div className="text-5xl mb-4" role="img" aria-label={tip.category}>
+            <div className="text-5xl mb-3" role="img" aria-label={tip.category}>
               {tip.icon}
             </div>
-            <h3 className="text-xl font-bold text-blue-800 dark:text-blue-300 mb-2">
+            <h3 className="text-xl font-semibold text-orange-800 dark:text-orange-300 mb-1">
               {tip.title}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-              **Category:** {tip.category}
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+              Category: {tip.category}
             </p>
-            <p className="text-gray-700 dark:text-gray-300 flex-grow">
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
               {tip.tip}
             </p>
           </MotionDiv>

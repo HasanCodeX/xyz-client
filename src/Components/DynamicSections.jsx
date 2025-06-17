@@ -11,7 +11,7 @@ const DynamicSections = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/foods")
+    fetch("https://mehedi2.vercel.app/foods")
       .then((res) => res.json())
       .then((data) => {
         const today = new Date();

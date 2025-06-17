@@ -10,6 +10,7 @@ import {
   signOut,
   updateProfile
 } from "firebase/auth";
+import axios from 'axios';
 
 export const AuthContext = createContext();
 
@@ -46,6 +47,9 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      axios.post('https://mehedi2.vercel.app/jwt',currentUser,{withCredentials:true})
+      .then((res) =>console.log(res.data))
+      .catch(err=>console.log(err))
     });
     return () => unsubscribe();
   }, []);
